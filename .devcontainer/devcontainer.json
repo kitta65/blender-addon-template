@@ -1,0 +1,4 @@
+{
+	"name": "blender",
+	"image": "lscr.io/linuxserver/blender:4.0.2-ls99"
+}
