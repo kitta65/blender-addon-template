@@ -1,4 +1,12 @@
 {
-	"name": "blender",
-	"build": {"dockerfile": "Dockerfile"}
+  "name": "blender",
+  "build": {"dockerfile": "Dockerfile"},
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python"],
+      "settings": {
+        "python.defaultInterpreterPath": "/blender/4.0/python/bin/python3.10"
+      }
+    }
+  }
 }

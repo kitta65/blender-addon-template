@@ -1,1 +1,3 @@
-print("hello!")
+import bpy
+
+print(bpy)
