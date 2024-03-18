@@ -3,10 +3,11 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-  "forwardPorts": [3000],
+  "forwardPorts": [3000, 3001],
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
   },
+  "postCreateCommand": "/blender/4.0/python/bin/python3.10 -m ensurepip && /blender/4.0/python/bin/python3.10 -m pip install fake-bpy-module-4.0",
   "customizations": {
     "vscode": {
       "extensions": ["ms-python.python"],
