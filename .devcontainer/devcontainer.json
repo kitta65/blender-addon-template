@@ -11,7 +11,7 @@
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
   },
-  "postCreateCommand": "ln -s /blender/4.0/python/bin/python3.10 /usr/local/bin/python && python -m pip install fake-bpy-module-4.0 && ln -s /config/workspaces/src /blender/4.0/scripts/addons/${localWorkspaceFolderBasename}",
+  "postCreateCommand": "sh .devcontainer/post-create.sh",
   "containerEnv": {
     // specify the same value as your local environement
     "PUID": "1000", // id -u
