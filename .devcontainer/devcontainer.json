@@ -2,7 +2,8 @@
   "name": "blender",
   "image": "lscr.io/linuxserver/blender:4.0.2-ls99",
   "overrideCommand": false,
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "workspaceFolder": "/config/workspaces",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/config/workspaces,type=bind",
   "forwardPorts": [
     3000,
     3001
@@ -10,7 +11,7 @@
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
   },
-  "postCreateCommand": "ln -s /blender/4.0/python/bin/python3.10 /usr/local/bin/python && python -m pip install fake-bpy-module-4.0 && ln -s /workspaces/${localWorkspaceFolderBasename}/src /blender/4.0/scripts/addons/${localWorkspaceFolderBasename}",
+  "postCreateCommand": "ln -s /blender/4.0/python/bin/python3.10 /usr/local/bin/python && python -m pip install fake-bpy-module-4.0 && ln -s /config/workspaces/src /blender/4.0/scripts/addons/${localWorkspaceFolderBasename}",
   "containerEnv": {
     // specify the same value as your local environement
     "PUID": "1000", // id -u
