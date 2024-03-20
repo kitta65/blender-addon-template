@@ -29,10 +29,7 @@
         "ms-python.black-formatter"
       ],
       "settings": {
-        "python.defaultInterpreterPath": "/blender/4.0/python/bin/python3.10",
-        "[python]": {
-          "editor.defaultFormatter": "ms-python.black-formatter"
-        }
+        "python.defaultInterpreterPath": "/blender/4.0/python/bin/python3.10"
       }
     }
   }
