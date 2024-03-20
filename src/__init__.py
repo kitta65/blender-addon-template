@@ -20,8 +20,20 @@ class SAMPLE_OT_SampleOperator(bpy.types.Operator):
     bl_label = "sample operator"
     bl_description = "sample operator"
 
-    def execute(self, _):
-        self.report({"INFO"}, "sample operator exexuted!")
+    def execute(self, context):
+
+        txt: bpy.types.Text
+        for txt in bpy.data.texts:
+            if not txt.name.endswith(".py"):
+                continue
+            txt.from_string("import bpy")  # TODO exec black
+
+        area: bpy.types.Area
+        for area in bpy.context.window.screen.areas:
+            if area.type != "TEXT_EDITOR":
+                continue
+            bpy.ops.text.cursor_set()  # needed to refresh
+
         return {"FINISHED"}
 
 
