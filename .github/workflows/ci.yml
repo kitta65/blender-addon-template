@@ -6,6 +6,9 @@ jobs:
       image: lscr.io/linuxserver/blender:4.0.2-ls99
       volumes:
         - ${{ github.workspace }}:/config/workspaces
+    default:
+      run:
+        working-directory: /config/workspaces
     steps:
       - uses: actions/checkout@v4
 
