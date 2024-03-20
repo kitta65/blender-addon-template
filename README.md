@@ -1,3 +1,3 @@
-# Blender Add-on Template
+# Thanos Blender
 
 WIP
