@@ -4,9 +4,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: lscr.io/linuxserver/blender:4.0.2-ls99
-    defaults:
-      run:
-        working-directory: /config/workspaces
+      volumes:
+        - ${{ githu.workspace }}:/config/workspaces
     steps:
       - uses: actions/checkout@v4
 
