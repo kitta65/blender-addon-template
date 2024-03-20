@@ -9,8 +9,6 @@ jobs:
         working-directory: /config/workspaces
     steps:
       - uses: actions/checkout@v4
-        with:
-          path: /config/workspaces
 
       # setup
       - run: blender --background --python .devcontainer/setup.py
