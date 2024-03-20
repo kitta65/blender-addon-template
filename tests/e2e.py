@@ -1,14 +1,19 @@
 import bpy
 import bmesh
 import addon_utils
-from thanos.utils import SelectMode, select_modes, select_mode_str2bools
+from typing import Literal
+
+SelectMode = Literal["VERTS", "EDGES", "FACES"]
+# NOTE do not use get_args() here, the order may be different from original
+# https://docs.python.org/3/library/typing.html#typing.get_args
+select_modes: list[SelectMode] = ["VERTS", "EDGES", "FACES"]
 
 
 def assert_half_wiped_out(mode: SelectMode) -> None:
     # prepare
     bpy.ops.mesh.primitive_cube_add()
     bpy.ops.object.mode_set(mode="EDIT")
-    bpy.context.scene.tool_settings.mesh_select_mode = select_mode_str2bools(mode)
+    bpy.context.scene.tool_settings.mesh_select_mode = [m == mode for m in select_modes]
     bpy.ops.mesh.select_all(action="SELECT")
 
     # exec operator

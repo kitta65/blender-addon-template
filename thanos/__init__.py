@@ -1,7 +1,7 @@
 import bpy
 import bmesh
 import random
-from thanos.utils import select_mode_str
+from .utils import curr_select_mode
 
 bl_info = {
     "name": "Thanos",
@@ -24,7 +24,7 @@ class THANOS_OT_WipeOut(bpy.types.Operator):
     bl_options = {"UNDO"}
 
     def execute(self, context):
-        mode = select_mode_str(context.scene.tool_settings.mesh_select_mode)
+        mode = curr_select_mode(context)
         me = context.object.data
         bm = bmesh.from_edit_mesh(me)
 

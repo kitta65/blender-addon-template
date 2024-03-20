@@ -7,19 +7,11 @@ SelectMode = Literal["VERTS", "EDGES", "FACES"]
 select_modes: list[SelectMode] = ["VERTS", "EDGES", "FACES"]
 
 
-def select_mode_str(context: bpy.types.Context) -> SelectMode:
-    v_e_f = context.scene.tool_settings.mesh_select_mode
+def curr_select_mode(context: bpy.types.Context) -> SelectMode:
+    bools = context.scene.tool_settings.mesh_select_mode
 
-    for bool_, mode in zip(v_e_f, select_modes):
-        if bool_:
-            return mode
-
-    raise Exception("Cannot detect selection mode")
-
-
-def select_mode_str2bools(bools: list[bool]) -> SelectMode:
-    for bool_, mode in zip(bools, select_modes):
-        if bool_:
-            return mode
+    for b, m in zip(bools, select_modes):
+        if b:
+            return m
 
     raise Exception("Cannot detect selection mode")
