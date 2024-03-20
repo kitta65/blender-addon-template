@@ -15,6 +15,7 @@ jobs:
       # setup
       - run: blender --background --python .devcontainer/setup.py
       - run: sh .devcontainer/setup.sh
+      - run: python -m pip install black
 
       # test
-      - run: blender --background --python tests/e2e.py
+      - run: blender --background --python-exit-code 1 --python tests/e2e.py
