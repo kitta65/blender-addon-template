@@ -20,30 +20,27 @@ class THANOS_OT_WipeOut(bpy.types.Operator):
     bl_idname = "thanos.wipe_out"
     bl_label = "Thanos"
     bl_description = "Wipe out half of the vertices"
-
     bl_options = {"UNDO"}
 
     def execute(self, context):
-        v, e, f = context.scene.tool_settings.mesh_select_mode
+        modes = ["VERTS", "EDGES", "FACES_ONLY"]
+        bools = context.scene.tool_settings.mesh_select_mode
+        mode = [m for b, m in zip(bools, modes) if b][0]
+
         me = context.object.data
         bm = bmesh.from_edit_mesh(me)
 
-        if v:
-            context = "VERTS"
-            all = bm.verts
-        elif e:
-            context = "EDGES"
-            all = bm.edges
-        elif f:
-            context = "FACES_ONLY"
-            all = bm.faces
-        else:
-            self.report({"ERROR"}, "cannot detect mesh_selection_mode")
-            return {"CANCELLED"}
+        match mode:
+            case "VERTS":
+                all = bm.verts
+            case "EDGES":
+                all = bm.edges
+            case "FACES_ONLY":
+                all = bm.faces
 
         selection = [x for x in all if x.select]
         half = random.sample(selection, len(selection) // 2)
-        bmesh.ops.delete(bm, geom=half, context=context)
+        bmesh.ops.delete(bm, geom=half, context=mode)
         bmesh.update_edit_mesh(me)
         bm.free()
 

@@ -6,12 +6,7 @@ jobs:
       image: lscr.io/linuxserver/blender:4.0.2-ls99
     steps:
       - uses: actions/checkout@v4
-
-      # setup
-      - run: blender --background --python .devcontainer/setup.py
-      - run: sh .devcontainer/setup.sh
-
-      # test
+      - run: ln -s $(pwd)/thanos /blender/4.0/scripts/addons/myaddon
       - run: blender --background --python-exit-code 1 --python tests/e2e.py
 
   artifact:

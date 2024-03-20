@@ -1,8 +1,6 @@
 {
   "name": "blender",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
+  "image": "lscr.io/linuxserver/blender:4.0.2-ls99",
   "overrideCommand": false,
   "workspaceFolder": "/config/workspaces",
   "workspaceMount": "source=${localWorkspaceFolder},target=/config/workspaces,type=bind",
@@ -14,7 +12,7 @@
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
   },
-  "postCreateCommand": "sh .devcontainer/setup.sh",
+  "postCreateCommand": "/blender/4.0/python/bin/python3.10 -m pip install fake-bpy-module-4.0 && sudo ln -s $(pwd)/thanos /blender/4.0/scripts/addons/myaddon",
   "containerEnv": {
     // specify the same value as your local environement
     "PUID": "1000", // id -u
@@ -31,10 +29,7 @@
         "ms-python.black-formatter"
       ],
       "settings": {
-        "python.defaultInterpreterPath": "/blender/4.0/python/bin/python3.10",
-        "[python]": {
-          "editor.defaultFormatter": "ms-python.black-formatter"
-        }
+        "python.defaultInterpreterPath": "/blender/4.0/python/bin/python3.10"
       }
     }
   }
