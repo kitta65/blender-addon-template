@@ -6,6 +6,7 @@
   "overrideCommand": false,
   "workspaceFolder": "/config/workspaces",
   "workspaceMount": "source=${localWorkspaceFolder},target=/config/workspaces,type=bind",
+  "remoteUser": "kasm-user", // created by linuxserver/blender
   "forwardPorts": [
     3000,
     3001
