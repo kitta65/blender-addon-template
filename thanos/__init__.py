@@ -1,7 +1,6 @@
 import bpy
 import bmesh
 import random
-from .utils import curr_select_mode
 
 bl_info = {
     "name": "Thanos",
@@ -24,7 +23,10 @@ class THANOS_OT_WipeOut(bpy.types.Operator):
     bl_options = {"UNDO"}
 
     def execute(self, context):
-        mode = curr_select_mode(context)
+        modes = ["VERTS", "EDGES", "FACES_ONLY"]
+        bools = context.scene.tool_settings.mesh_select_mode
+        mode = [m for b, m in zip(bools, modes) if b][0]
+
         me = context.object.data
         bm = bmesh.from_edit_mesh(me)
 
@@ -33,8 +35,7 @@ class THANOS_OT_WipeOut(bpy.types.Operator):
                 all = bm.verts
             case "EDGES":
                 all = bm.edges
-            case "FACES":
-                mode = "FACES_ONLY"
+            case "FACES_ONLY":
                 all = bm.faces
 
         selection = [x for x in all if x.select]

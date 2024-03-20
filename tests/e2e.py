@@ -4,8 +4,6 @@ import addon_utils
 from typing import Literal
 
 SelectMode = Literal["VERTS", "EDGES", "FACES"]
-# NOTE do not use get_args() here, the order may be different from original
-# https://docs.python.org/3/library/typing.html#typing.get_args
 select_modes: list[SelectMode] = ["VERTS", "EDGES", "FACES"]
 
 
