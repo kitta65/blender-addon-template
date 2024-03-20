@@ -1,6 +1,6 @@
 {
   "name": "blender",
-  "image": "lscr.io/linuxserver/blender:4.0.2-ls99",
+  "build": {"dockerfile": "Dockerfile"},
   "overrideCommand": false,
   "workspaceFolder": "/config/workspaces",
   "workspaceMount": "source=${localWorkspaceFolder},target=/config/workspaces,type=bind",
@@ -11,7 +11,7 @@
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
   },
-  "postCreateCommand": "sh .devcontainer/post-create.sh",
+  "postCreateCommand": "sh .devcontainer/setup.sh",
   "containerEnv": {
     // specify the same value as your local environement
     "PUID": "1000", // id -u
