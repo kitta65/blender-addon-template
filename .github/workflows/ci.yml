@@ -13,3 +13,27 @@ jobs:
 
       # test
       - run: blender --background --python-exit-code 1 --python tests/e2e.py
+
+  artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p artifact
+          mv thanos artifact/thanos
+      - uses: actions/upload-artifact@v4
+        with:
+          name: thanos
+          path: artifact/
+
+  release:
+    if: ${{ github.ref_type == 'tag' }}
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: zip -r ./thanos.zip ./thanos
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: ./thanos.zip
+          generateReleaseNotes: 'true'
