@@ -13,3 +13,11 @@ jobs:
 
       # test
       - run: blender --background --python-exit-code 1 --python tests/e2e.py
+
+  artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-artifact@v4
+        with:
+          path: src/
