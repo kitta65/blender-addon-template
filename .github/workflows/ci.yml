@@ -25,3 +25,15 @@ jobs:
         with:
           name: thanos
           path: artifact/
+
+  release:
+    if: ${{ github.ref_type == 'tag' }}
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: zip -r thanos.zip src
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: ./thanos.zip
+          generateReleaseNotes: 'true'
