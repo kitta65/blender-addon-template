@@ -15,6 +15,7 @@ def assert_half_wiped_out(mode: Mode):
         mode == "FACES",
     ]
     bpy.ops.object.mode_set(mode="EDIT")
+    bpy.ops.mesh.select_all(action="SELECT")
 
     # exec operator
     bpy.ops.sample.thanos_wipe_out()

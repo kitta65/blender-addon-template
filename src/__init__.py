@@ -31,19 +31,20 @@ class SAMPLE_OT_Thanos(bpy.types.Operator):
 
         if v:
             context = "VERTS"
-            geom = bm.verts
+            all = bm.verts
         elif e:
             context = "EDGES"
-            geom = bm.edges
+            all = bm.edges
         elif f:
             context = "FACES_ONLY"
-            geom = bm.faces
+            all = bm.faces
         else:
             self.report({"ERROR"}, "cannot detect mesh_selection_mode")
             return {"CANCELLED"}
 
-        geom = random.sample(list(geom), len(geom) // 2)
-        bmesh.ops.delete(bm, geom=geom, context=context)
+        selection = [x for x in all if x.select]
+        half = random.sample(selection, len(selection) // 2)
+        bmesh.ops.delete(bm, geom=half, context=context)
         bmesh.update_edit_mesh(me)
         bm.free()
 
