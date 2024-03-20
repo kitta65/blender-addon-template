@@ -1,4 +1,5 @@
 import bpy
+import black
 
 bl_info = {
     "name": "Blender Add-on Template",
@@ -26,13 +27,15 @@ class SAMPLE_OT_SampleOperator(bpy.types.Operator):
         for txt in bpy.data.texts:
             if not txt.name.endswith(".py"):
                 continue
-            txt.from_string("import bpy")  # TODO exec black
+            formatted = black.format_str(txt.as_string(), mode=black.FileMode())
+            txt.from_string(formatted)
 
         area: bpy.types.Area
-        for area in bpy.context.window.screen.areas:
+        for area in context.window.screen.areas:
             if area.type != "TEXT_EDITOR":
                 continue
-            bpy.ops.text.cursor_set()  # needed to refresh
+            with context.temp_override(area=area):
+                bpy.ops.text.jump(1)  # needed to refresh
 
         return {"FINISHED"}
 
