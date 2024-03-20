@@ -1,13 +1,14 @@
 import bpy
-import black
+import bmesh
+import random
 
 bl_info = {
-    "name": "Blender Add-on Template",
+    "name": "Thanos",
     "author": "kitta65",
     "version": (0, 0, 1),
     "blender": (4, 0, 0),
-    "location": "",
-    "description": "",
+    "location": "View3D > Mesh > Thanos",
+    "description": "Wipe out half of the vertices / edges / faces",
     "warning": "",
     "support": "COMMUNITY",
     "doc_url": "",
@@ -16,42 +17,56 @@ bl_info = {
 }
 
 
-class SAMPLE_OT_SampleOperator(bpy.types.Operator):
-    bl_idname = "sample.sample_operator"
-    bl_label = "sample operator"
-    bl_description = "sample operator"
+class SAMPLE_OT_Thanos(bpy.types.Operator):
+    bl_idname = "sample.thanos_wipe_out"
+    bl_label = "Thanos"
+    bl_description = "Wipe out half of the vertices"
+
+    bl_options = {"UNDO"}
 
     def execute(self, context):
+        v, e, f = context.scene.tool_settings.mesh_select_mode
+        me = context.object.data
+        bm = bmesh.from_edit_mesh(me)
 
-        txt: bpy.types.Text
-        for txt in bpy.data.texts:
-            if not txt.name.endswith(".py"):
-                continue
-            formatted = black.format_str(txt.as_string(), mode=black.FileMode())
-            txt.from_string(formatted)
+        if v:
+            context = "VERTS"
+            geom = bm.verts
+        elif e:
+            context = "EDGES"
+            geom = bm.edges
+        elif f:
+            context = "FACES_ONLY"
+            geom = bm.faces
+        else:
+            self.report({"ERROR"}, "cannot detect mesh_selection_mode")
+            return {"CANCELLED"}
 
-        area: bpy.types.Area
-        for area in context.window.screen.areas:
-            if area.type != "TEXT_EDITOR":
-                continue
-            with context.temp_override(area=area):
-                bpy.ops.text.jump(1)  # needed to refresh
+        geom = random.sample(list(geom), len(geom) // 2)
+        bmesh.ops.delete(bm, geom=geom, context=context)
+        bmesh.update_edit_mesh(me)
+        bm.free()
 
         return {"FINISHED"}
 
 
-classes = [SAMPLE_OT_SampleOperator]
+def menu(cls, _):
+    cls.layout.separator()
+    cls.layout.operator(SAMPLE_OT_Thanos.bl_idname, icon="COMMUNITY")
+
+
+classes = [SAMPLE_OT_Thanos]
 
 
 def register():
     for c in classes:
         bpy.utils.register_class(c)
 
-    print("activated!")
+    bpy.types.VIEW3D_MT_edit_mesh.append(menu)
 
 
 def unregister():
+    bpy.types.VIEW3D_MT_edit_mesh.remove(menu)
+
     for c in reversed(classes):
         bpy.utils.unregister_class(c)
-
-    print("deactivated!")
