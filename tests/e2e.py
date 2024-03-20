@@ -1,20 +1,14 @@
 import bpy
 import bmesh
 import addon_utils
-from typing import Literal
-
-Mode = Literal["VERTS", "EDGES", "FACES"]
+from thanos.utils import SelectMode, select_modes, select_mode_str2bools
 
 
-def assert_half_wiped_out(mode: Mode):
+def assert_half_wiped_out(mode: SelectMode) -> None:
     # prepare
     bpy.ops.mesh.primitive_cube_add()
-    bpy.context.scene.tool_settings.mesh_select_mode = [
-        mode == "VERTS",
-        mode == "EDGES",
-        mode == "FACES",
-    ]
     bpy.ops.object.mode_set(mode="EDIT")
+    bpy.context.scene.tool_settings.mesh_select_mode = select_mode_str2bools(mode)
     bpy.ops.mesh.select_all(action="SELECT")
 
     # exec operator
@@ -46,8 +40,7 @@ def assert_half_wiped_out(mode: Mode):
 def main():
     addon_utils.enable("myaddon")
 
-    modes: list[Mode] = ["VERTS", "EDGES", "FACES"]
-    for m in modes:
+    for m in select_modes:
         assert_half_wiped_out(m)
 
 
