@@ -1,0 +1,19 @@
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: lscr.io/linuxserver/blender:4.0.2-ls99
+    defaults:
+      run:
+        working-directory: /config/workspaces
+    steps:
+      - uses: actions/checkout@v4
+        path: /config/workspaces
+
+      # setup
+      - run: blender --background --python .devcontainer/setup.py
+      - run: sh .devcontainer/setup.sh
+
+      # test
+      - run: blender --background --python tests/e2e.py
