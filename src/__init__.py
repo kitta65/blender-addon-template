@@ -9,16 +9,15 @@ bl_info = {
     "blender": (4, 0, 0),
     "location": "View3D > Mesh > Thanos",
     "description": "Wipe out half of the vertices / edges / faces",
-    "warning": "",
     "support": "COMMUNITY",
-    "doc_url": "",
-    "tracker_url": "",
+    "doc_url": "https://github.com/kitta65/thanos-blender",
+    "tracker_url": "https://github.com/kitta65/thanos-blender/issues",
     "category": "Sample",
 }
 
 
-class SAMPLE_OT_Thanos(bpy.types.Operator):
-    bl_idname = "sample.thanos_wipe_out"
+class THANOS_OT_WipeOut(bpy.types.Operator):
+    bl_idname = "thanos.wipe_out"
     bl_label = "Thanos"
     bl_description = "Wipe out half of the vertices"
 
@@ -53,10 +52,10 @@ class SAMPLE_OT_Thanos(bpy.types.Operator):
 
 def menu(cls, _):
     cls.layout.separator()
-    cls.layout.operator(SAMPLE_OT_Thanos.bl_idname, icon="COMMUNITY")
+    cls.layout.operator(THANOS_OT_WipeOut.bl_idname, icon="COMMUNITY")
 
 
-classes = [SAMPLE_OT_Thanos]
+classes = [THANOS_OT_WipeOut]
 
 
 def register():
