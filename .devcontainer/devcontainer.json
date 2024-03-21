@@ -2,8 +2,8 @@
   "name": "blender",
   "image": "lscr.io/linuxserver/blender:4.0.2-ls99",
   "overrideCommand": false,
-  "workspaceFolder": "/config/workspaces",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/config/workspaces,type=bind",
+  "workspaceFolder": "/config/${localWorkspaceFolderBasename}",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/config/${localWorkspaceFolderBasename},type=bind",
   "remoteUser": "kasm-user", // created by linuxserver/blender
   "forwardPorts": [
     3000,
@@ -12,7 +12,7 @@
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
   },
-  "postCreateCommand": "/blender/4.0/python/bin/python3.10 -m pip install fake-bpy-module-4.0 && sudo ln -s $(pwd)/thanos /blender/4.0/scripts/addons/myaddon",
+  "postCreateCommand": "/blender/4.0/python/bin/python3.10 -m pip install fake-bpy-module-4.0 && sudo ln -s $(pwd)/src /blender/4.0/scripts/addons/myaddon",
   "containerEnv": {
     // specify the same value as your local environement
     "PUID": "1000", // id -u
