@@ -15,7 +15,7 @@ def assert_half_wiped_out(mode: SelectMode) -> None:
     bpy.ops.mesh.select_all(action="SELECT")
 
     # exec operator
-    bpy.ops.thanos.wipe_out()
+    bpy.ops.thanos.snap_fingers()
     me = bpy.context.object.data
     bm = bmesh.from_edit_mesh(me)
 

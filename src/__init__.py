@@ -16,8 +16,8 @@ bl_info = {
 }
 
 
-class THANOS_OT_WipeOut(bpy.types.Operator):
-    bl_idname = "thanos.wipe_out"
+class THANOS_OT_SnapFingers(bpy.types.Operator):
+    bl_idname = "thanos.snap_fingers"
     bl_label = "Thanos"
     bl_description = "Wipe out half of the vertices"
     bl_options = {"UNDO"}
@@ -49,10 +49,10 @@ class THANOS_OT_WipeOut(bpy.types.Operator):
 
 def menu(cls, _):
     cls.layout.separator()
-    cls.layout.operator(THANOS_OT_WipeOut.bl_idname, icon="COMMUNITY")
+    cls.layout.operator(THANOS_OT_SnapFingers.bl_idname, icon="COMMUNITY")
 
 
-classes = [THANOS_OT_WipeOut]
+classes = [THANOS_OT_SnapFingers]
 
 
 def register():
