@@ -49,7 +49,7 @@ class THANOS_OT_SnapFingers(bpy.types.Operator):
 
 def menu(cls, _):
     cls.layout.separator()
-    cls.layout.operator(THANOS_OT_SnapFingers.bl_idname, icon="COMMUNITY")
+    cls.layout.operator(THANOS_OT_SnapFingers.bl_idname, icon="TRASH")
 
 
 classes = [THANOS_OT_SnapFingers]
