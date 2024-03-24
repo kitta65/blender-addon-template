@@ -19,7 +19,7 @@ bl_info = {
 class THANOS_OT_SnapFingers(bpy.types.Operator):
     bl_idname = "thanos.snap_fingers"
     bl_label = "Thanos"
-    bl_description = "Wipe out half of the vertices"
+    bl_description = "Wipe out half of the vertices / edges / faces"
     bl_options = {"UNDO"}
 
     def execute(self, context):
