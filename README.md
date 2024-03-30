@@ -1,6 +1,6 @@
 # Thanos Blender
 
-This extension wipes out exactly half of the vertices, edges or faces like Thanos!
+This add-on wipes out exactly half of the vertices, edges or faces like Thanos!
 
 https://github.com/kitta65/thanos-blender/assets/26474260/63fb1fa1-fa49-4bbc-a2ae-8c42d521c943
 
